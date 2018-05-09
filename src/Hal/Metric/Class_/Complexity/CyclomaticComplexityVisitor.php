@@ -1,7 +1,6 @@
 <?php
 namespace Hal\Metric\Class_\Complexity;
 
-use Hal\Component\Reflected\Method;
 use Hal\Metric\Helper\MetricClassNameGenerator;
 use Hal\Metric\Metrics;
 use PhpParser\Node;
@@ -68,7 +67,9 @@ class CyclomaticComplexityVisitor extends NodeVisitorAbstract
                                 }
                             }
                         }
-
+                        if (isset($node->expr)) {
+                            $ccn += $cb($node->expr);
+                        }
                         switch (true) {
                             case $node instanceof Stmt\If_:
                             case $node instanceof Stmt\ElseIf_:
